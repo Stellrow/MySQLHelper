@@ -70,16 +70,12 @@ public class MySQLInstance{
         asyncExecute(() -> executeQuery(statementToExecute));
     }
     private void openConnection() throws SQLException,ClassNotFoundException{
-        if(connection!=null&&!connection.isClosed()){
-            return;
-        }
-        synchronized (this){
             if (connection != null && !connection.isClosed()) {
                 return;
             }
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://" + this.host+ ":" + this.port + "/" + this.dataBase, this.username, this.password);
-        }
+
         }
         //Execute statement on other threads
     private void asyncExecute(StatementSQL statement){
