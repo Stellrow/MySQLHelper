@@ -1,14 +1,10 @@
 package ro.Stellrow.MySQLHelper.api;
 
-import io.netty.util.concurrent.CompleteFuture;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.*;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
 
 public class MySQLInstance{
     private String host;
