@@ -27,10 +27,6 @@ public class MySQLInstance{
                 try{
                 openConnection();
                 statement = connection.createStatement();
-
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -55,6 +51,11 @@ public class MySQLInstance{
         });
 
     }
+    public void a(){
+        getResult("ä").thenAccept(result ->{
+            //Code here
+        });
+    }
     public CompletableFuture<ResultSet> getResult(String path){
         return CompletableFuture.supplyAsync(() -> {
             try {
@@ -69,12 +70,16 @@ public class MySQLInstance{
     public void setData(String statementToExecute){
         asyncExecute(() -> executeQuery(statementToExecute));
     }
-    private void openConnection() throws SQLException,ClassNotFoundException{
+    private void openConnection() throws SQLException {
             if (connection != null && !connection.isClosed()) {
                 return;
             }
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://" + this.host+ ":" + this.port + "/" + this.dataBase, this.username, this.password);
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                connection = DriverManager.getConnection("jdbc:mysql://" + this.host + ":" + this.port + "/" + this.dataBase, this.username, this.password);
+            }catch (SQLException | ClassNotFoundException exception){
+                exception.printStackTrace();
+            }
 
         }
         //Execute statement on other threads
