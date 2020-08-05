@@ -41,21 +41,6 @@ public class MySQLInstance{
             }
         });
     }
-    public void createTable(String statementToExecute){
-        asyncExecute(() -> {
-            try {
-                statement.execute(statementToExecute);
-            }catch (SQLException exception){
-                exception.printStackTrace();
-            }
-        });
-
-    }
-    public void a(){
-        getResult("ä").thenAccept(result ->{
-            //Code here
-        });
-    }
     public CompletableFuture<ResultSet> getResult(String path){
         return CompletableFuture.supplyAsync(() -> {
             try {
@@ -65,10 +50,6 @@ public class MySQLInstance{
             }
             return null;
         });
-    }
-
-    public void setData(String statementToExecute){
-        asyncExecute(() -> executeQuery(statementToExecute));
     }
     private void openConnection() throws SQLException {
             if (connection != null && !connection.isClosed()) {
@@ -97,13 +78,5 @@ public class MySQLInstance{
     private interface StatementSQL{
         void execute();
     }
-    private void executeQuery(String toExecute){
-        try {
-            statement.executeQuery(toExecute);
-        }catch (SQLException exception){
-            exception.printStackTrace();
-        }
-    }
-
     }
 
